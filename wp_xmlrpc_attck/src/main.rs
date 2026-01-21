@@ -52,14 +52,25 @@ async fn test_xmlrpc(client: Arc<Client>, target: String, callback: String, sour
     {
         Ok(res) => {
             let status = res.status();
-            println!("[{}] Status: {}", target, status);
+            
+            // here is get the Body as text
+            if let Ok(body) = res.text().await {
+                
+                if body.contains("<int>0</int>") {
+                    println!("[!] [Suspicious!] SSRF Potentially Successful: {}", target);
+                    println!("    -> Check your webhook");
+                } else if body.contains("methodResponse") {
+                    println!("[+] [{}] XML-RPC Response received (Not SSRF-specific).", target);
+                } else {
+                    println!("[*] [{}] Status: {}, Body length: {}", target, status, body.len());
+                }
+            }
         }
         Err(e) => {
             eprintln!("[{}] Error: {}", target, e);
         }
     }
 }
-
 #[tokio::main]
 async fn main() -> io::Result<()> {
     let args = Args::parse();
