@@ -96,7 +96,7 @@ wp_xmlrpc_attck \
 [*] Loaded 2 targets.
 [*] Callback URL: attacker.example.com
 [*] Source URL:   https://source.example.com
-[https://example.com/xmlrpc.php] Status: 200 OK
-[https://wp.example.org/xmlrpc.php] Status: 403 Forbidden
+[!] [Suspicious!] SSRF Potentially Successful: https://example.com/xmlrpc.php
+    -> Check your webhook
 [+] All tests completed.
 ```
